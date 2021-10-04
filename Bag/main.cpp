@@ -11,7 +11,7 @@ int main()
   bag b1, b2, b4;
 
   //show_contents
-  cout << "empty bag, b1:";
+  cout << "Empty bag, b1:";
   b1.show_contents();
   cout << endl;
 
@@ -26,28 +26,28 @@ int main()
   b2.insert(8);
   b2.insert(9);
 
-  cout << "inserted bag b1: ";
+  cout << "Inserted bag b1: ";
   b1.show_contents();
   cout << endl;
 
-  cout << "inserted bag, b2: ";
+  cout << "Inserted bag, b2: ";
   b2.show_contents();
   cout << endl;
 
   //copy constructor
   bag b3(b1);
-  cout << "copied bag, b3: ";
+  cout << "Copied bag, b3: ";
   b3.show_contents();
   cout << endl;
 
   //sort
   b1.sort();
-  cout << "sorted bag, b1: ";
+  cout << "Sorted bag, b1: ";
   b1.show_contents();
   cout << endl;
 
   //grab
-  cout << "grab random number in b1: ";
+  cout << "Grab random number in b1: ";
   cout << b1.grab() << endl;
 
   //count

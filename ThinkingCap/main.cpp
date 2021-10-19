@@ -16,5 +16,3 @@ int main()
   fan.push_green();
   student.push_red();
 }
-  
-  

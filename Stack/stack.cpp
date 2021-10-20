@@ -1,4 +1,3 @@
-//Stack With Array
 #include <iostream>
 #include <cassert>
 #include <cstdlib>

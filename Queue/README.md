@@ -13,6 +13,6 @@ approach 2.
 As the front item is deleted from the array, all remaining items are moved one position to the left so that the value of first will be always 0.
 - Problem: very inefficient
 
-*approach 3: Circular array approach. 
+*\approach 3: Circular array approach. 
 When the rear index reaches the end of the array, we can simply start reusing the available locations at the front of the array.
 - next_index = ( current_index + 1 ) % CAPACITY

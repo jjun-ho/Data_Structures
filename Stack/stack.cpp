@@ -1,4 +1,4 @@
-//1.Array
+//Stack With Array
 #include <iostream>
 #include <cassert>
 #include <cstdlib>

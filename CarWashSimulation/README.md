@@ -1,4 +1,4 @@
-Queue를 이용한 차량 세차 시간 시뮬레이션
+Car Wash Times Simulation With Queue: Queue를 이용한 차량 세차 시간 시뮬레이션
 
 (a) washer
 – the amount of time needed to wash a car

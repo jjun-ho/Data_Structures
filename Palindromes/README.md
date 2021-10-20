@@ -1,4 +1,4 @@
-Queue Application
+Queue Application: Palindrome
 
 Palindrome:
 - A string that reads the same forward and backward

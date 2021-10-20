@@ -4,6 +4,7 @@ Queue
 -A data structure of ordered entries such that entries can be inserted at one end (called the rear) and removed at the other end (called the front)
 - First-In First Out (FIFO)
 
+++Informations)
 Array Implementation
 approach 1. 
 first and last will always be incremented as items are added or removed
@@ -16,3 +17,9 @@ As the front item is deleted from the array, all remaining items are moved one p
 approach 3: Circular array approach. 
 When the rear index reaches the end of the array, we can simply start reusing the available locations at the front of the array.
 - next_index = ( current_index + 1 ) % CAPACITY
+
+* Priority Queue
+- A container class that allows entries to be retrieved according to some specified priority leves
+
+* Deque: A Double Ended Queue
+- A queue which provides a means to insert and remove items at both ends

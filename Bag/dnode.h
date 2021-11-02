@@ -47,8 +47,8 @@ void list_head_remove(dnode *&head_ptr);
 void list_remove(dnode *previous_ptr);
 void list_clear(dnode *&head_ptr);
 
-dnode *head_ptr;
-dnode *tail_ptr;
+//dnode *head_ptr;
+//dnode *tail_ptr;
 
 //list_lengh
 size_t list_lengh(const dnode *head_ptr)

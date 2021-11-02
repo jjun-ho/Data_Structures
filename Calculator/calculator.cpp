@@ -14,7 +14,7 @@ const char LEFT_PARENTHESIS = '(';
 const char RIGHT_PARENTHESIS = ')';
 
 template <class Item>
-string read_expression() 
+string read_expression(istream& ins) 
 {
   stack<Item> numbers; 
   stack<char> operations; 
@@ -44,6 +44,7 @@ string read_expression()
   return numbers.top( );
 }
 
+/*
 template <class Item>
 void evaluate_stack_tops(stack<Item>& numbers, stack<char>& operations)
 {
@@ -61,19 +62,93 @@ void evaluate_stack_tops(stack<Item>& numbers, stack<char>& operations)
   }
   operations.pop( );
 }
+*/
+
+//우선순위
+int precedence(char c)
+{
+  if (c == '^')
+    return 3;
+  if (c == '*' || c == '/')
+    return 2;
+  if (c == '+' || c == '-')
+    return 1;
+  return -1;
+}
+
+bool isOperand(char c) {
+	if(c >='0' &&  c <= '9') return true;
+	if(c>= 'a' && c<='z') return true;
+	if(c>= 'A' && c<= 'Z') return true;
+	return false;
+}
+
+bool isOperator(char c) {
+	if(c == '+' || c == '-' || c == '*' || c=='/' )
+		return true;
+	return false;
+}
 
 
 string convert_to_postfix(string s)
-double evaluate_postfix(string s)
+{
+  int len = s.length();
+  stack<char> st;
+  string postfix = " ";
+  
+  for(int i=0; i<s.length(); i++)
+  {
+    if(s[i]==' ' || s[i]==',') continue;
+    
+    else if (isOperator(s[i]))
+    {
+      while(!st.empty() && st.top() != LEFT_PARENTHESIS && ((precedence(s[i])) <= (precedence(st.top()))))
+      {
+        postfix += st.top();
+        st.pop();
+      }
+      st.push(s[i]);
+    }
+
+    else if (isOperand(s[i]))
+    {
+      postfix += s[i];
+    }
+
+    else if (s[i] == LEFT_PARENTHESIS)
+    {
+      st.push(s[i]);
+    }
+
+    else if (s[i] == RIGHT_PARENTHESIS)
+    {
+      while(!st.empty() && st.top() != LEFT_PARENTHESIS) 
+      {
+        postfix += st.top();
+        st.pop();
+      }
+    }
+  }
+  while (!st.empty())
+  {
+    postfix += st.top();
+    st.pop();
+  }
+}
+
+//double evaluate_postfix(string s)
 
 
 
 int main()
 {
-  double answer;
-  cout << "arithmetic expression:" << endl;
-  answer = read_and_evaluate(cin);
-  cout << "That evaluates to " << answer << endl;
+  string infix;
+	cout<<"Enter the infix empression" <<endl;
 
-  return EXIT_SUCCESS; }
+  getline(cin,infix);
+	string postfix = convert_to_postfix(infix);
+	
+	cout<<"The postfix expression is :"<<postfix<<endl;
+
+  return 0;
 }

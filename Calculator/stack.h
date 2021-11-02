@@ -26,13 +26,13 @@ class stack
     bool empty() const {return (top_ptr == NULL);}
     Item top() const;
   private:
-  node<Item> *top_ptr;
+  dnode<Item> *top_ptr;
 };
 
 template <class Item>
 stack<Item>:: stack(const stack<Item>& source)
 {
-  node<Item> * tail_ptr;
+  dnode<Item> * tail_ptr;
   list_copy(source.top_ptr, top_ptr, tail_ptr);
 }
 
@@ -52,7 +52,7 @@ void stack<Item>::pop()
 template <class Item>
 void stack<Item>::operator =(const stack<Item>& source)
 {
-  node<Item> *tail_ptr;
+  dnode<Item> *tail_ptr;
 
   if (this == &source)
     return;

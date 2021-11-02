@@ -77,7 +77,7 @@ size_t list_lengh(const dnode<Item> *head_ptr)
 template <class Item>
 void list_head_insert(dnode<Item> *&head_ptr, const Item &entry)
 {
-  dnode<Item> *new_ptr = new dnode(entry, head_ptr);
+  dnode<Item> *new_ptr = new dnode<Item>(entry, head_ptr);
   if (head_ptr != NULL)
     head_ptr->set_back(new_ptr);
   head_ptr = new_ptr;
@@ -89,7 +89,7 @@ void list_insert(dnode<Item> *previous_ptr, const Item &entry)
 {
   dnode<Item> *insert_ptr;
 
-  insert_ptr = new dnode(entry, previous_ptr->fore(), previous_ptr);
+  insert_ptr = new dnode<Item>(entry, previous_ptr->fore(), previous_ptr);
   if (previous_ptr->fore() != NULL)
     previous_ptr->fore()->set_back(insert_ptr);
   previous_ptr->set_fore(insert_ptr);

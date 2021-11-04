@@ -13,14 +13,13 @@ const char DECIMAL = '.';
 const char LEFT_PARENTHESIS = '(';
 const char RIGHT_PARENTHESIS = ')';
 
+template<class Item>
 string read_expression(istream& ins);
 string convert_to_postfix(string s);
 double evaluate_postfix(string s);
 
 double scanNum(char ch);
-int optWeight(char op);
-int IsRightAssociative(char op);
-int precedence(char opt1, char opt2);
+int precedence(char op);
 bool isOperand(char c) ;
 bool isOperator(char c) ;
 double operation (double val1, double val2, char op);
@@ -60,46 +59,17 @@ double scanNum(char ch)
 {
    int value;
    value = ch;
-   return float(value-'0');
-}
-
-int optWeight(char op)
-{
-  int weight=-1;
-	switch(op) {
-		case '+':
-		case '-':
-			weight=1;
-			break;
-
-		case '*' :
-		case '/':
-			weight=2;
-			break;
-    case '$' :
-			weight=3;
-			break;
-	}
-	return weight;
-}
-
-int IsRightAssociative(char op)
-{
-	if(op == '$') return true;
-	return false;
+   return double(value-'0');
 }
 
 //operator 우선순위
-int precedence(char opt1, char opt2)
+int precedence(char op)
 {
-  int optWt1 = optWeight(opt1);
-	int optWt2 = optWeight(opt2);
-	
-	if(optWt1==optWt2) {
-		if(IsRightAssociative(opt1)) return false;
-		else return true;
-	}
-	return optWt1 > optWt2 ? true:false ;	
+  if (op == '*' || op == '/')
+    return 2;
+  if (op == '+' || op == '-')
+    return 1;
+  return -1;
 }
 
 bool isOperand(char c) 
@@ -128,7 +98,8 @@ double operation (double val1, double val2, char op)
   else if(op == '/')
     return val2 / val1;
   else
-    return 0;
+    cout<<"Unexpected Error "<< endl;
+  return -1;
 }
 
 string convert_to_postfix(string s)
@@ -143,7 +114,7 @@ string convert_to_postfix(string s)
     
     else if (isOperator(s[i]))
     {
-      while(!st.empty() && st.top() != LEFT_PARENTHESIS && precedence(st.top(), s[i]))
+      while(!st.empty() && st.top() != LEFT_PARENTHESIS && ((precedence(s[i])) <= (precedence(st.top()))))
       {
         postfix += st.top();
         st.pop();

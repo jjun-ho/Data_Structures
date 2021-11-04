@@ -13,6 +13,13 @@ const char DECIMAL = '.';
 const char LEFT_PARENTHESIS = '(';
 const char RIGHT_PARENTHESIS = ')';
 
+string read_expression(istream& ins);
+int precedence(char op);
+bool isOperand(char c) ;
+bool isOperator(char c) ;
+string convert_to_postfix(string s);
+
+
 template <class Item>
 string read_expression(istream& ins) 
 {
@@ -44,46 +51,28 @@ string read_expression(istream& ins)
   return numbers.top( );
 }
 
-/*
-template <class Item>
-void evaluate_stack_tops(stack<Item>& numbers, stack<char>& operations)
+//operator 우선순위
+int precedence(char op)
 {
-  double operand1, operand2;
-  operand2 = numbers.top( ); 
-  numbers.pop( );
-  operand1 = numbers.top( ); 
-  numbers.pop( );
-  switch (operations.top( )) 
-  {
-    case '+': numbers.push(operand1 + operand2); break;
-    case '-': numbers.push(operand1 - operand2); break;
-    case '*': numbers.push(operand1 * operand2); break;
-    case '/': numbers.push(operand1 / operand2); break;
-  }
-  operations.pop( );
-}
-*/
-
-//우선순위
-int precedence(char c)
-{
-  if (c == '^')
-    return 3;
-  if (c == '*' || c == '/')
+  //if (op == '^')
+    //return 3;
+  if (op == '*' || op == '/')
     return 2;
-  if (c == '+' || c == '-')
+  if (op == '+' || op == '-')
     return 1;
   return -1;
 }
 
-bool isOperand(char c) {
+bool isOperand(char c) 
+{
 	if(c >='0' &&  c <= '9') return true;
 	if(c>= 'a' && c<='z') return true;
 	if(c>= 'A' && c<= 'Z') return true;
 	return false;
 }
 
-bool isOperator(char c) {
+bool isOperator(char c) 
+{
 	if(c == '+' || c == '-' || c == '*' || c=='/' )
 		return true;
 	return false;
@@ -127,6 +116,7 @@ string convert_to_postfix(string s)
         postfix += st.top();
         st.pop();
       }
+      st.pop();
     }
   }
   while (!st.empty())
@@ -134,9 +124,13 @@ string convert_to_postfix(string s)
     postfix += st.top();
     st.pop();
   }
+  return postfix;
 }
 
 //double evaluate_postfix(string s)
+{
+
+}
 
 
 

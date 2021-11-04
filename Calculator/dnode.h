@@ -22,7 +22,8 @@ public:
   void set_fore(dnode<Item> *new_fore) { link_fore = new_fore; }
   void set_back(dnode<Item> *new_back) { link_back = new_back; }
 
-  Item& data() const { return data_field; }
+  //Item& data() const { return data_field; }
+  Item& data() { return data_field; }
 
   const dnode<Item> *fore() const { return link_fore; }
   dnode<Item> *fore() { return link_fore; }

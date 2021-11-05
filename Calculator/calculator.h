@@ -1,4 +1,5 @@
 #include <iostream>
+#include <istream>
 #include <cassert>
 #include <cstdlib>
 #include <string>
@@ -20,7 +21,7 @@ bool isOperator(char c) ;
 double operation (double val1, double val2, char op);
 
 template<class Item>
-string read_expression(istream& ins);
+string read_expression();
 string convert_to_postfix(string s);
 double evaluate_postfix(string s);
 
@@ -75,37 +76,17 @@ double operation (double val1, double val2, char op)
   return -1;
 }
 
-//숫자 연산자 읽기
-template <class Item>
-string read_expression(istream& ins)
+//두자리 숫자 안읽힘 -> 두자리 숫자 읽히면 문자 -> 숫자 방법 바꿔야함:scanNum -> 숫자인지 확인하는 것도 수정
+//숫자 연산자 읽기  
+string read_expression()
 {
-  stack<Item> numbers; 
-  stack<char> operations; 
-  Item number;
-  char symbol;
+  char infix[100];
+  cin.getline(infix, 100);  
 
 
-  while (ins && ins.peek( ) != '\n')
-  {
-    if (isdigit(ins.peek( )) || (ins.peek( ) == DECIMAL)) 
-    {
-      ins >> number;
-      numbers.push(number);
-    }
-    else if (strchr("+-*/", ins.peek( )) != NULL) 
-    {
-      ins >> symbol;
-      operations.push(symbol);
-    }
-    else if (ins.peek( ) == RIGHT_PARENTHESIS) 
-    {
-      ins.ignore( );
-      evaluate_stack_tops(numbers, operations); 
-    }
-    else
-      ins.ignore( );
-  }
-  return numbers.top( );
+
+
+  return infix;
 }
 
 //Infix -> Postfix

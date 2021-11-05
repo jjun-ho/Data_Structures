@@ -13,24 +13,77 @@ const char DECIMAL = '.';
 const char LEFT_PARENTHESIS = '(';
 const char RIGHT_PARENTHESIS = ')';
 
-template<class Item>
-string read_expression(istream& ins);
-string convert_to_postfix(string s);
-double evaluate_postfix(string s);
-
 double scanNum(char ch);
 int precedence(char op);
 bool isOperand(char c) ;
 bool isOperator(char c) ;
 double operation (double val1, double val2, char op);
 
+template<class Item>
+string read_expression(istream& ins);
+string convert_to_postfix(string s);
+double evaluate_postfix(string s);
+
+//char 숫자 -> double 숫자 
+double scanNum(char ch)
+{
+   int value;
+   value = ch;
+   return double(value-'0');
+}
+
+//operator 우선순위
+int precedence(char op)
+{
+  if (op == '*' || op == '/')
+    return 2;
+  if (op == '+' || op == '-')
+    return 1;
+  return -1;
+}
+
+//숫자 or 변수 확인
+bool isOperand(char c) 
+{
+	if(c >='0' &&  c <= '9') return true;
+	if(c>= 'a' && c<='z') return true;
+	if(c>= 'A' && c<= 'Z') return true;
+	return false;
+}
+
+//연산자 확인 
+bool isOperator(char c) 
+{
+	if(c == '+' || c == '-' || c == '*' || c=='/' )
+		return true;
+	return false;
+}
+
+//사칙연산 계산
+double operation (double val1, double val2, char op)
+{
+  if(op == '+')
+    return val2 + val1;
+  else if(op == '-')
+    return val2 - val1;
+   else if(op == '*')
+    return val2 * val1;
+  else if(op == '/')
+    return val2 / val1;
+  else
+    cout<<"Unexpected Error "<< endl;
+  return -1;
+}
+
+//숫자 연산자 읽기
 template <class Item>
-string read_expression(istream& ins) 
+string read_expression(istream& ins)
 {
   stack<Item> numbers; 
   stack<char> operations; 
   Item number;
   char symbol;
+
 
   while (ins && ins.peek( ) != '\n')
   {
@@ -55,53 +108,7 @@ string read_expression(istream& ins)
   return numbers.top( );
 }
 
-double scanNum(char ch)
-{
-   int value;
-   value = ch;
-   return double(value-'0');
-}
-
-//operator 우선순위
-int precedence(char op)
-{
-  if (op == '*' || op == '/')
-    return 2;
-  if (op == '+' || op == '-')
-    return 1;
-  return -1;
-}
-
-bool isOperand(char c) 
-{
-	if(c >='0' &&  c <= '9') return true;
-	if(c>= 'a' && c<='z') return true;
-	if(c>= 'A' && c<= 'Z') return true;
-	return false;
-}
-
-bool isOperator(char c) 
-{
-	if(c == '+' || c == '-' || c == '*' || c=='/' )
-		return true;
-	return false;
-}
-
-double operation (double val1, double val2, char op)
-{
-  if(op == '+')
-    return val2 + val1;
-  else if(op == '-')
-    return val2 - val1;
-   else if(op == '*')
-    return val2 * val1;
-  else if(op == '/')
-    return val2 / val1;
-  else
-    cout<<"Unexpected Error "<< endl;
-  return -1;
-}
-
+//Infix -> Postfix
 string convert_to_postfix(string s)
 {
   int len = s.length();
@@ -150,15 +157,14 @@ string convert_to_postfix(string s)
   return postfix;
 }
 
+//Postfix Calculate
 double evaluate_postfix(string s)
 {
   double val1, val2;
   stack<double> result;
 
-  string postfix = convert_to_postfix(s);
-
   string::iterator it;
-  for(it = postfix.begin(); it != postfix.end(); it++)
+  for(it = s.begin(); it != s.end(); it++)
   {
     if(isOperator(*it) != false)
     {
@@ -168,24 +174,8 @@ double evaluate_postfix(string s)
       result.pop();
       result.push(operation(val1, val2, *it));
     }
-    else if(isOperand(*it) == true )
+    else if(isOperand(*it) == true)
       result.push(scanNum(*it));
   }
   return result.top();
-}
-
-int main()
-{
-  string infix;
-  double cal;
-
-	cout<<"Enter the infix empression :" << endl;
-  getline(cin,infix);
-	string postfix = convert_to_postfix(infix);
-  cout<<"The postfix expression is : "<< postfix << endl;
-
-	cal = evaluate_postfix(postfix);
-  cout<<"calculate postfix : " << cal << endl;
-
-  return 0;
 }

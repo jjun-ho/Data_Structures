@@ -49,6 +49,7 @@ bool isOperand(char c)
 	if(c >='0' &&  c <= '9') return true;
 	if(c>= 'a' && c<='z') return true;
 	if(c>= 'A' && c<= 'Z') return true;
+  if(c == DECIMAL) return true;
 	return false;
 }
 
@@ -80,8 +81,8 @@ double operation (double val1, double val2, char op)
 //숫자 연산자 읽기  
 string read_expression()
 {
-  char infix[100];
-  cin.getline(infix, 100);  
+  string infix;
+  getline(cin, infix);
 
 
 
@@ -94,7 +95,7 @@ string convert_to_postfix(string s)
 {
   int len = s.length();
   stack<char> st;
-  string postfix = " ";
+  string postfix;  //postifx = " ";
   
   for(int i=0; i<s.length(); i++)
   {
@@ -105,6 +106,7 @@ string convert_to_postfix(string s)
       while(!st.empty() && st.top() != LEFT_PARENTHESIS && ((precedence(s[i])) <= (precedence(st.top()))))
       {
         postfix += st.top();
+        postfix += ' ';
         st.pop();
       }
       st.push(s[i]);
@@ -113,6 +115,7 @@ string convert_to_postfix(string s)
     else if (isOperand(s[i]))
     {
       postfix += s[i];
+      postfix += ' ';
     }
 
     else if (s[i] == LEFT_PARENTHESIS)
@@ -125,6 +128,7 @@ string convert_to_postfix(string s)
       while(!st.empty() && st.top() != LEFT_PARENTHESIS) 
       {
         postfix += st.top();
+        postfix += ' ';
         st.pop();
       }
       st.pop();
@@ -133,6 +137,7 @@ string convert_to_postfix(string s)
   while (!st.empty())
   {
     postfix += st.top();
+    postfix += ' '; 
     st.pop();
   }
   return postfix;

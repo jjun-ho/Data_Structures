@@ -46,19 +46,19 @@ int precedence(char op)
 //숫자 or 변수 확인
 bool isOperand(char c) 
 {
-	if(c >='0' &&  c <= '9') return true;
-	if(c>= 'a' && c<='z') return true;
-	if(c>= 'A' && c<= 'Z') return true;
+  if(c >='0' &&  c <= '9') return true;
+  if(c>= 'a' && c<='z') return true;
+  if(c>= 'A' && c<= 'Z') return true;
   if(c == DECIMAL) return true;
-	return false;
+  return false;
 }
 
 //연산자 확인 
 bool isOperator(char c) 
 {
-	if(c == '+' || c == '-' || c == '*' || c=='/' )
-		return true;
-	return false;
+  if(c == '+' || c == '-' || c == '*' || c=='/' )
+    return true;
+  return false;
 }
 
 //사칙연산 계산
@@ -83,10 +83,6 @@ string read_expression()
 {
   string infix;
   getline(cin, infix);
-
-
-
-
   return infix;
 }
 
@@ -165,3 +161,4 @@ double evaluate_postfix(string s)
   }
   return result.top();
 }
+

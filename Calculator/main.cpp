@@ -12,7 +12,7 @@ int main()
   cout<< "The infix expression : " << infix << endl;
 
 	string postfix = convert_to_postfix(infix);
-  cout<<"The postfix expression is : "<< postfix << endl;
+  cout<<"The postfix expression : "<< postfix << endl;
 
 	cal = evaluate_postfix(postfix);
   cout<<"calculate postfix : " << cal << endl;

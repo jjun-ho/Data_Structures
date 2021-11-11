@@ -10,7 +10,6 @@
 
 using namespace std;
 
-const char DECIMAL = '.';
 const char LEFT_PARENTHESIS = '(';
 const char RIGHT_PARENTHESIS = ')';
 
@@ -25,7 +24,7 @@ string read_expression();
 string convert_to_postfix(string s);
 double evaluate_postfix(string s);
 
-//char 숫자 -> double 숫자 
+//char 형 숫자 -> double 형 숫자 
 double scanNum(char ch)
 {
    int value;
@@ -49,7 +48,6 @@ bool isOperand(char c)
   if(c >='0' &&  c <= '9') return true;
   if(c>= 'a' && c<='z') return true;
   if(c>= 'A' && c<= 'Z') return true;
-  if(c == DECIMAL) return true;
   return false;
 }
 
@@ -77,8 +75,7 @@ double operation (double val1, double val2, char op)
   return -1;
 }
 
-//두자리 숫자 안읽힘 -> 두자리 숫자 읽히면 문자 -> 숫자 방법 바꿔야함:scanNum -> 숫자인지 확인하는 것도 수정
-//숫자 연산자 읽기  
+//한 줄로 infix 표현 입력받기  
 string read_expression()
 {
   string infix;
@@ -91,7 +88,7 @@ string convert_to_postfix(string s)
 {
   int len = s.length();
   stack<char> st;
-  string postfix;  //postifx = " ";
+  string postfix;  
   
   for(int i=0; i<s.length(); i++)
   {

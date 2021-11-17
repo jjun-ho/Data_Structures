@@ -6,6 +6,10 @@
         "iosfwd": "cpp",
         "cassert": "cpp",
         "cstdlib": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "array": "cpp",
+        "iterator": "cpp",
+        "string": "cpp",
+        "string_view": "cpp"
     }
 }

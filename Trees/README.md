@@ -44,3 +44,4 @@
 (a) An entry at index i is greater than all the entries in subtree number i of the node.
 (b) An entry at index i is smaller than all the entries in subtree number i+1 of the node.
 6. Every leaf in a B-tree has the same depth.
+

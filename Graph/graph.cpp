@@ -105,15 +105,6 @@ void graph<Item>::remove_edge(std::size_t source, std::size_t target)
 }
 
 //Graph Traversals
-template <class Process, class Item, class SizeType>
-void depth_first(Process f, graph<Item>& g, SizeType start)
-{
-  bool marked[g.MAXIMUM];
-
-  assert(start < g.size());
-  std:fill_n(marked, g.size(), false);
-  rec_dfs(f,g,start,marked);
-}
 
 template <class Process, class Item, class SizeType>
 void rec_dfs(Process f, graph<Item>& g, SizeType v, bool marked[])
@@ -129,6 +120,16 @@ void rec_dfs(Process f, graph<Item>& g, SizeType v, bool marked[])
     if (!marked[*it])
       rec_dfs(f, g, *it, marked);
   }
+}
+
+template <class Process, class Item, class SizeType>
+void depth_first(Process f, graph<Item>& g, SizeType start)
+{
+  bool marked[g.MAXIMUM];
+
+  assert(start < g.size());
+  std:fill_n(marked, g.size(), false);
+  rec_dfs(f,g,start,marked);
 }
 
 template <class Process, class Item, class SizeType>

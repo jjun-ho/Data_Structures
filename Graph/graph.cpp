@@ -3,6 +3,9 @@
 #include <cstdlib>
 #include <set>
 
+#include <algorithm>
+#include <queue>
+
 template <class Item>
 class graph
 {
@@ -64,14 +67,14 @@ bool graph<Item>::is_edge(std::size_t source, std::size_t target) const
 }
 
 template <class Item>
-Item& graph<Item>::operator[ ] (std::size_t add_vertex)
+Item& graph<Item>::operator[ ] (std::size_t vertex)
 {
   assert(vertex < size( ));
   return labels[vertex];
 }
 
 template <class Item>
-Item graph<Item>::operator[ ] (std::size_t add_vertex) const
+Item graph<Item>::operator[ ] (std::size_t vertex) const
 {
   assert(vertex < size( ));
   return labels[vertex];
@@ -99,5 +102,64 @@ void graph<Item>::remove_edge(std::size_t source, std::size_t target)
   assert(source < size( )); 
   assert(target < size( )); 
   edges[source][target] = false;
+}
+
+//Graph Traversals
+template <class Process, class Item, class SizeType>
+void depth_first(Process f, graph<Item>& g, SizeType start)
+{
+  bool marked[g.MAXIMUM];
+
+  assert(start < g.size());
+  std:fill_n(marked, g.size(), false);
+  rec_dfs(f,g,start,marked);
+}
+
+template <class Process, class Item, class SizeType>
+void rec_dfs(Process f, graph<Item>& g, SizeType v, bool marked[])
+{
+  std::set<std::size_t> connections = g.neighbors(v); 
+  std::set<std::size_t>::iterator it;
+
+  marked[v] = true; 
+  f(g[v]); 
+  
+  for (it = connections.begin( ); it != connections.end( ); ++it)
+  {
+    if (!marked[*it])
+      rec_dfs(f, g, *it, marked);
+  }
+}
+
+template <class Process, class Item, class SizeType>
+void breadth_first(Process f, graph<Item>& g, SizeType start)
+{
+  bool marked[g.MAXIMUM]; 
+  std::set<std::size_t> connections; 
+  std::set<std::size_t>::iterator it; 
+  std::queue<std::size_t> vertex_queue;
+
+  assert(start < g.size( )); 
+
+  std::fill_n(marked, g.size( ), false);
+  marked[start] = true; 
+  f(g[start]); 
+  vertex_queue.push(start); 
+  do
+  {
+    connections = g.neighbors(vertex_queue.front( ));
+    vertex_queue.pop( );
+    
+    for (it = connections.begin( ); it != connections.end( ); ++it)
+    {
+      if (!marked[*it])
+      {
+        marked[*it] = true; 
+        f(g[*it]); 
+        vertex_queue.push(*it);
+      } 
+    }
+}
+while (!vertex_queue.empty( ));
 }
 

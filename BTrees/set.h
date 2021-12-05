@@ -205,11 +205,11 @@ Item& set<Item>::count(const Item& target)
     int index;
     index = first_ge(data, data_count, target);
     if (data[index] == target)
-        return data[index];
+        std::cout << "1" << std::endl;
     else if (!is_leaf())
         return subset[index]->count(target);
     else
-        std::cout << "Item is not in tree." << std::endl;
+        std::cout << "0" << std::endl;
 }
 
 template<class Item>

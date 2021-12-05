@@ -23,8 +23,8 @@ public:
                         
     void copy_tree(const set<Item>& other);     
 
-    bool contains(const Item& target) const;             
-    Item& count(const Item& target);                     
+    bool count(const Item& target) const;             
+    Item& get(const Item& target);                     
     Item* find(const Item& target);                
     int size() const;                       
     bool empty() const { return data_count == 0; }                        
@@ -80,6 +80,7 @@ set<Item>::~set()
     this->clear();
 }
 
+//operator=
 template<class Item>
 set<Item>& set<Item>::operator=(const set<Item>& source)
 {
@@ -88,6 +89,7 @@ set<Item>& set<Item>::operator=(const set<Item>& source)
     return *this;
 }
 
+//insert
 template<class Item>
 void set<Item>::insert(const Item& entry)
 {
@@ -110,6 +112,7 @@ void set<Item>::insert(const Item& entry)
     }
 }
 
+//erase
 template<class Item>
 bool set<Item>::erase(const Item& entry)
 {
@@ -140,6 +143,7 @@ bool set<Item>::erase(const Item& entry)
     return true;
 }
 
+//clear
 template<class Item>
 void set<Item>::clear()
 {
@@ -153,7 +157,7 @@ void set<Item>::clear()
     data_count = child_count = 0;
 }
 
-
+//copy_tree
 template<class Item>
 void set<Item>::copy_tree(const set<Item>& other)
 {
@@ -167,28 +171,31 @@ void set<Item>::copy_tree(const set<Item>& other)
     }
 }
 
+//count
 template<class Item>
-bool set<Item>::contains(const Item& target) const
+bool set<Item>::count(const Item& target) const
 {
     int index;
     index = first_ge(data, data_count, target);
     if (data[index] == target)
         return true;
     else if (!is_leaf())
-        return subset[index]->contains(target);
+        return subset[index]->count(target);
     else
         return false;
 }
 
+//find
 template<class Item>
 Item* set<Item>::find(const Item& target)
 {
-    assert(this->contains(target));
+    assert(this->count(target));
     Item* ptr;
-    ptr = &this->count(target);
+    ptr = &this->get(target);
     return ptr;
 }
 
+//size
 template<class Item>
 int set<Item>::size() const
 {
@@ -199,19 +206,21 @@ int set<Item>::size() const
     return size;
 }
 
+//get
 template<class Item>
-Item& set<Item>::count(const Item& target)
+Item& set<Item>::get(const Item& target)
 {
     int index;
     index = first_ge(data, data_count, target);
     if (data[index] == target)
-        std::cout << "1" << std::endl;
+        return data[index];
     else if (!is_leaf())
-        return subset[index]->count(target);
+        return subset[index]->get(target);
     else
         std::cout << "0" << std::endl;
 }
 
+//show_contents
 template<class Item>
 void set<Item>::show_contents(int indent, std::ostream& outs) const
 {
@@ -231,6 +240,7 @@ void set<Item>::show_contents(int indent, std::ostream& outs) const
     }
 }
 
+//loose_erase
 template<class Item>
 bool set<Item>::loose_erase(const Item& target)
 {
@@ -267,9 +277,10 @@ bool set<Item>::loose_erase(const Item& target)
         return true;
     }
     else
-        std::cout << "Something went wrong in loose_remove()" << std::endl;   
+        std::cout << "Wrong in loose_remove()" << std::endl;   
 }
 
+//remove_biggest
 template<class Item>
 void set<Item>::remove_biggest(Item& removed_entry)
 {
@@ -286,6 +297,7 @@ void set<Item>::remove_biggest(Item& removed_entry)
     }
 }
 
+//fix_shortage
 template<class Item>
 void set<Item>::fix_shortage(int i)
 {
@@ -368,6 +380,7 @@ void set<Item>::fix_shortage(int i)
     }
 }
 
+//fix_excess
 template<class Item>
 void set<Item>::fix_excess(int index)
 {
@@ -387,6 +400,7 @@ void set<Item>::fix_excess(int index)
     insert_item(data, index, data_count, mid);
 }
 
+//loose_insert
 template<class Item>
 void set<Item>::loose_insert(const Item& entry)
 {
@@ -404,6 +418,7 @@ void set<Item>::loose_insert(const Item& entry)
     }
 }
 
+//is_valid
 template<class Item>
 bool set<Item>::is_valid()
 {

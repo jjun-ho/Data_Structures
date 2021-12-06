@@ -1,40 +1,5 @@
 #include <iostream>
 #include <cstdlib>
-#include <assert.h>
-
-template <class Item>
-Item maximal(const Item& a, const Item& b)
-{
-    if (a > b)
-        return a;
-    
-    return b;
-}
-
-template <class Item>
-void swap(Item& a, Item& b)
-{
-    Item temp;
-    temp = a;
-    a = b;
-    b = temp;
-}
-
-template <class Item>
-int index_of_maximal(Item data[ ], int n)
-{
-    Item min;
-    int index;
-    min = data[0];
-
-    for (int i = 1; i < n; i++)
-        if (data[i] < min)
-        {
-            min = data[i];
-            index = i;
-        }
-    return index;
-}
 
 template <class Item>
 int first_ge(const Item data[ ], int n, const Item& entry) 
@@ -62,12 +27,6 @@ void insert_item(Item data[ ], int index, int& n, Item entry)
     data[index] = entry;
     n++;
 }   
- 
-template <class Item>
-void ordered_insert(Item data[ ], int& n, Item entry)   
-{
-    insert_item(data, first_ge(data, n, entry), n, entry);
-}        
 
 template <class Item>
 void delete_item(Item data[ ], int index, int& n, Item& entry)
@@ -130,16 +89,5 @@ bool is_sorted(Item* array, int size)
     }
 
     return true;   
-}
-
-template<typename Item>
-void print_array(Item* a, int size)
-{
-    for (int i = 0; i < size; i++)
-    {
-        std::cout << a[i] << " ";
-    }
-
-    std::cout << std::endl;
 }
 

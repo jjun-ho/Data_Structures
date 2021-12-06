@@ -5,34 +5,47 @@ using namespace std;
 int main()
 {
   set<int> BTree;
-  //insert
-  BTree.insert(1);
-  BTree.insert(3);
-  BTree.insert(5);
-  BTree.insert(7);
-  BTree.insert(9);
-  BTree.insert(11);
-  BTree.insert(13);
-
-  cout << "Before insert: " << endl;
-  BTree.show_contents();
-  cout << endl;
-
-  BTree.insert(4);
-  BTree.insert(8);
-
-  cout << "After insert(4,8): " << endl;
-  BTree.show_contents();
-  cout << endl;
-
-  //erase
-  BTree.erase(3);
-  BTree.erase(9);
-  cout << "After erase(3,9): " << endl;
-  BTree.show_contents();
-  cout << endl;
-
-  //count
-  cout << "3 count?: " << BTree.count(3) << endl;
-  cout << "15 count?: " << BTree.count(15) <<endl;
-}
+  int num;
+  string mode;
+    
+  while(1)
+  {
+    cout << "Mode Select (1. insert / 2. erase / 3. count / 4. show_contents / quit ) ? : " ;
+    cin >> mode; 
+    if(mode == "1")
+    {
+      cout << "insert number?: ";
+      cin >> num;
+      BTree.insert(num);
+      cout << num << " insert!!!" << endl;
+    }
+    else if (mode == "2")
+    {
+      cout << "erase number?: ";
+      cin >> num;
+      BTree.erase(num);
+      cout << num << " erase!!!" << endl;
+    }
+    else if(mode == "3")
+    {
+      cout << "count number?: ";
+      cin >> num;
+      cout << num << " count(1: True / 2: False ) : " << BTree.count(num) << endl;
+    }
+    else if(mode == "4")
+    {
+      cout << "show_contents" << endl;
+      BTree.show_contents();
+    }
+    else if(mode == "quit")
+    {
+      cout << "quit";
+      break;
+    }
+    else
+    {       
+      cout << "Wrong Mode";
+      break;
+    }   
+  }
+}  

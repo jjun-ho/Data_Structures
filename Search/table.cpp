@@ -1,6 +1,7 @@
 #include <cstdlib>
 
-template <class RecordType> class table
+template <class RecordType> 
+class table
 {
 public:
   // MEMBER CONSTANT 

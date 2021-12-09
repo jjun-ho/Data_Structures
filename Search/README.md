@@ -21,3 +21,25 @@
 - A table is a container of records with operations for inserting, deleting, and locating records.
 - Unlike a bag, each table operation is controlled by a single key field.
 - A hash table is a table with a hash function.
+
+* Hash Functions
+1. Division Hash Functions
+- usually computes key % table_size.
+2. Mid_Square Hash Functions
+- a good table_size is a prime number of form 4k+3 
+- takes some middle digits (in binary) of key * key.
+3. Multiplicative Hash Functions
+- takes the first few digits of a * key (0< a <1).
+
+* Types of Open-Address Hashing
+1. Linear Probing
+- if location hash(key) is not empty, try hash(key)+1, hash(key)+2, hash(key)+3, and so on in circular fashion until a vacant spot is found.
+2. Double Hashing
+- In linear probing, when several keys are hashed into the same location, the result is a small cluster of elements.
+- The clustering problem makes insertions take longer.
+- if location hash(key) is not empty, use a second hash function - double hashing - to determine the step length (how far forward to move through).
+- if location hash1(key) is not empty, compute hash2(key). 
+- Now hash2(key) is the step length.
+
+* Chained Hashing
+- Each array component can hold more than one entry.
